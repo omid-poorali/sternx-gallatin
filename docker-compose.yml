@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15.3-alpine3.18
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      # Standard port for PostgreSQL databases
+      - "5432:5432"
+    networks:
+      - postgres-network
+    volumes:
+      - postgresql:/var/lib/postgresql/data/
+
+networks: 
+  postgres-network:
+    driver: bridge
+
+volumes:
+  postgresql:
