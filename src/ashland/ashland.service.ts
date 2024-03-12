@@ -6,6 +6,6 @@ export class AshlandService {
   constructor(@Inject('ASHLAND_SERVICE') private serviceClient: ClientProxy) {}
 
   async log(log: { message: string; createdAt: Date }) {
-    this.serviceClient.emit('print-out', log);
+    this.serviceClient.emit('gallatin:log', log);
   }
 }
