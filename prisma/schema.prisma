@@ -19,7 +19,7 @@ model Task {
   parent      Task?    @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
   children    Task[]   @relation("ParentChild")
   title       String
-  description String
+  description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

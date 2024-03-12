@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { AshlandService } from './ashland.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+@Global()
 @Module({
   imports: [
     ConfigModule,
@@ -21,5 +22,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ]),
   ],
   providers: [AshlandService],
+  exports: [AshlandService],
 })
 export class AshlandModule {}
