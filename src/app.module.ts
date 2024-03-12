@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TasksModule } from './tasks/tasks.module';
+import { AshlandModule } from './ashland/ashland.module';
 
 @Module({
   imports: [
@@ -9,6 +10,7 @@ import { TasksModule } from './tasks/tasks.module';
       cache: true,
     }),
     TasksModule,
+    AshlandModule,
   ],
 })
 export class AppModule {}

@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Task, Prisma } from '@prisma/client';
+import { AshlandService } from '../ashland/ashland.service';
 
 @Injectable()
 export class TasksService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly ashlandService: AshlandService,
+  ) {}
 
   async task(
     taskWhereUniqueInput: Prisma.TaskWhereUniqueInput,
@@ -32,9 +36,15 @@ export class TasksService {
   }
 
   async createTask(data: Prisma.TaskCreateInput): Promise<Task> {
-    return this.prisma.task.create({
+    const newTask = await this.prisma.task.create({
       data,
     });
+    this.ashlandService.log({
+      message: 'new Task has been created: ' + JSON.stringify(newTask),
+      createdAt: new Date(),
+    });
+
+    return newTask;
   }
 
   async updateTask(params: {
@@ -42,15 +52,25 @@ export class TasksService {
     data: Prisma.TaskUpdateInput;
   }): Promise<Task> {
     const { where, data } = params;
-    return this.prisma.task.update({
+    const updated = await this.prisma.task.update({
       data,
       where,
     });
+    this.ashlandService.log({
+      message: 'task has been updated: ' + JSON.stringify(updated),
+      createdAt: new Date(),
+    });
+    return updated;
   }
 
   async deleteTask(where: Prisma.TaskWhereUniqueInput): Promise<Task> {
-    return this.prisma.task.delete({
+    const deleted = await this.prisma.task.delete({
       where,
     });
+    this.ashlandService.log({
+      message: 'task has been deleted: ' + JSON.stringify(deleted),
+      createdAt: new Date(),
+    });
+    return deleted;
   }
 }
