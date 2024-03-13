@@ -24,9 +24,9 @@ export class TasksController {
     return <CreateTaskResponse>{
       task: <Task>{
         id: result.id,
+        parentId: result.parentId,
         title: result.title,
         description: result.description,
-        parentId: result.parentId,
         createdAt: result.createdAt.toISOString(),
       },
     };
@@ -48,9 +48,9 @@ export class TasksController {
     return <UpdateTaskResponse>{
       task: <Task>{
         id: result.id,
+        parentId: result.parentId,
         title: result.title,
         description: result.description,
-        parentId: result.parentId,
         createdAt: result.createdAt.toISOString(),
         updatedAt: result.updatedAt.toISOString(),
       },
@@ -64,9 +64,9 @@ export class TasksController {
     return <DeleteTaskResponse>{
       task: <Task>{
         id: result.id,
+        parentId: result.parentId,
         title: result.title,
         description: result.description,
-        parentId: result.parentId,
         createdAt: result.createdAt.toISOString(),
         updatedAt: result.updatedAt.toISOString(),
       },
@@ -84,17 +84,17 @@ export class TasksController {
       tasks: result.map((task) => {
         return <Task>{
           id: task.id,
+          parentId: task.parentId,
           title: task.title,
           description: task.description,
-          parentId: task.parentId,
           createdAt: task.createdAt.toISOString(),
           updatedAt: task.updatedAt.toISOString(),
           children: task.children.map((child) => {
             return <Task>{
               id: child.id,
+              parentId: child.parentId,
               title: child.title,
               description: child.description,
-              parentId: child.parentId,
               createdAt: child.createdAt.toISOString(),
               updatedAt: child.updatedAt.toISOString(),
             };
